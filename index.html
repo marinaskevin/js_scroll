@@ -16,6 +16,7 @@
 			border-right: 1px solid #777;
 			padding-right: 7px;
 			display: inline;
+			text-shadow: 2px 2px black;
 		}
 	</style>
 </head>
@@ -32,10 +33,10 @@
 
 		function updateText()
 		{
-			el.innerHTML = el.innerHTML+words[word_counter][character_counter++];
-
 			if(character_counter == words[word_counter].length)
 			{
+				document.body.style.backgroundColor = "rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")";
+				document.getElementById("magic").style.color = "rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")";
 				word_counter++; 	//choose a different word
 				character_counter = 0;	//start over with the first character of the word
 				el.innerHTML = '';  //set the html to be blank
@@ -44,9 +45,26 @@
 				if(word_counter == words.length)
 					word_counter = 0;
 			}
+			if(words[word_counter][character_counter] == ' ')
+			{
+				el.innerHTML = el.innerHTML + '&nbsp;';
+			}
+			else
+			{
+				el.innerHTML = el.innerHTML+words[word_counter][character_counter];
+			}
+			character_counter++;
+			if(character_counter == words[word_counter].length)
+			{
+				setTimeout(updateText,900);
+			}
+			else
+			{
+				setTimeout(updateText,100);
+			}
 		}
 
-		setInterval(updateText,300);
+		setTimeout(updateText,100);
 
 	</script>
 
